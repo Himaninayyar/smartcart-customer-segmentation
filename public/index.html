@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartCart · Segment Console</title>
+<meta name="description" content="Scan a customer's profile and get their SmartCart segment, instantly." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SC</span>
+      <span>SmartCart<small>Segment Console</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Predictor</a>
+      <a href="insights.html">Segment Atlas</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="eyebrow">Model live · KMeans on 3 PCA components</div>
+  <h1 class="headline">Scan a customer, get their segment.</h1>
+  <p class="sub">
+    Enter a customer's profile and SmartCart runs it through the same pipeline used
+    to segment 2,236 real customers — one-hot encoding, standardization, PCA, then
+    nearest-centroid clustering — and prints the result like a checkout receipt.
+  </p>
+
+  <div class="stat-strip" id="stat-strip">
+    <div class="stat"><b>2,240</b><span>Customer Records</span></div>
+    <div class="stat"><b>19</b><span>Model Features</span></div>
+    <div class="stat"><b>4</b><span>Segments</span></div>
+    <div class="stat"><b>3</b><span>PCA Components</span></div>
+  </div>
+</header>
+
+<main class="wrap console">
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Customer Profile</h2>
+      <span class="tag">Input</span>
+    </div>
+
+    <form id="predict-form">
+
+      <fieldset>
+        <legend>Demographics</legend>
+        <div class="field-grid cols-3">
+          <div>
+            <label for="yearBirth">Birth year<span class="hint">e.g. 1978</span></label>
+            <input type="number" id="yearBirth" min="1900" max="2020" value="1978" required />
+          </div>
+          <div>
+            <label for="education">Education</label>
+            <select id="education" required>
+              <option value="Basic">Basic / High School</option>
+              <option value="2n Cycle">2nd Cycle Degree</option>
+              <option value="Graduation" selected>Bachelor's</option>
+              <option value="Master">Master's</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+          <div>
+            <label for="maritalStatus">Marital status</label>
+            <select id="maritalStatus" required>
+              <option value="Married" selected>Married</option>
+              <option value="Together">Together</option>
+              <option value="Single">Single</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widow">Widowed</option>
+            </select>
+          </div>
+          <div>
+            <label for="kidhome">Kids at home</label>
+            <input type="number" id="kidhome" min="0" max="10" value="1" required />
+          </div>
+          <div>
+            <label for="teenhome">Teens at home</label>
+            <input type="number" id="teenhome" min="0" max="10" value="0" required />
+          </div>
+          <div>
+            <label for="dtCustomer">Joined SmartCart<span class="hint">enrollment date</span></label>
+            <input type="date" id="dtCustomer" value="2013-09-15" required />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Income &amp; spending (last 2 years)</legend>
+        <div class="field-grid cols-3">
+          <div>
+            <label for="income">Yearly income ($)</label>
+            <input type="number" id="income" min="0" value="52000" required />
+          </div>
+          <div>
+            <label for="mntWines">Wine ($)</label>
+            <input type="number" id="mntWines" min="0" value="220" />
+          </div>
+          <div>
+            <label for="mntFruits">Fruits ($)</label>
+            <input type="number" id="mntFruits" min="0" value="20" />
+          </div>
+          <div>
+            <label for="mntMeatProducts">Meat ($)</label>
+            <input type="number" id="mntMeatProducts" min="0" value="90" />
+          </div>
+          <div>
+            <label for="mntFishProducts">Fish ($)</label>
+            <input type="number" id="mntFishProducts" min="0" value="30" />
+          </div>
+          <div>
+            <label for="mntSweetProducts">Sweets ($)</label>
+            <input type="number" id="mntSweetProducts" min="0" value="18" />
+          </div>
+          <div>
+            <label for="mntGoldProds">Gold products ($)</label>
+            <input type="number" id="mntGoldProds" min="0" value="35" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Purchase &amp; engagement behaviour</legend>
+        <div class="field-grid cols-3">
+          <div>
+            <label for="numDealsPurchases">Deal purchases</label>
+            <input type="number" id="numDealsPurchases" min="0" value="3" />
+          </div>
+          <div>
+            <label for="numWebPurchases">Web purchases</label>
+            <input type="number" id="numWebPurchases" min="0" value="4" />
+          </div>
+          <div>
+            <label for="numCatalogPurchases">Catalog purchases</label>
+            <input type="number" id="numCatalogPurchases" min="0" value="2" />
+          </div>
+          <div>
+            <label for="numStorePurchases">Store purchases</label>
+            <input type="number" id="numStorePurchases" min="0" value="5" />
+          </div>
+          <div>
+            <label for="numWebVisitsMonth">Web visits / month</label>
+            <input type="number" id="numWebVisitsMonth" min="0" value="6" />
+          </div>
+          <div>
+            <label for="recency">Days since last purchase</label>
+            <input type="number" id="recency" min="0" value="30" />
+          </div>
+        </div>
+        <div class="checkbox-row">
+          <label><input type="checkbox" id="response" /> Responded to last campaign</label>
+          <label><input type="checkbox" id="complain" /> Complained in last 2 years</label>
+        </div>
+      </fieldset>
+
+      <button class="submit-btn" type="submit" id="submit-btn">Scan customer →</button>
+      <div class="error-msg" id="error-msg"></div>
+    </form>
+  </section>
+
+  <aside class="receipt-slot">
+    <div id="receipt-holder">
+      <div class="receipt-empty">
+        <div class="glyph">🛒</div>
+        Awaiting scan — fill in the profile and press<br />"Scan customer" to print a segment receipt.
+      </div>
+    </div>
+  </aside>
+
+</main>
+
+<footer class="site-footer wrap">
+  <span>SmartCart Clustering System · unsupervised segmentation, K-Means on PCA(3)</span>
+  <span>Built from smartcart_customer_segmentation.ipynb</span>
+</footer>
+
+<script src="js/predictor.js"></script>
+</body>
+</html>

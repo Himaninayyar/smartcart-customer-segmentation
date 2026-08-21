@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Segment Atlas · SmartCart</title>
+<meta name="description" content="The four SmartCart customer segments, derived from real clustering output." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SC</span>
+      <span>SmartCart<small>Segment Console</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Predictor</a>
+      <a href="insights.html" class="active">Segment Atlas</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="eyebrow">Derived from 2,236 cleaned records</div>
+  <h1 class="headline">Four segments, mapped from real behaviour.</h1>
+  <p class="sub">
+    Every card below is computed live from the fitted model — average income, spend,
+    household size and campaign response per cluster — colour-coded exactly as scoped
+    on the instructor's whiteboard.
+  </p>
+</header>
+
+<main class="wrap">
+  <div class="atlas-grid" id="atlas-grid">
+    <!-- filled by insights.js -->
+  </div>
+
+  <section class="method-panel">
+    <h2>How the segments are built</h2>
+    <p>
+      SmartCart doesn't guess segments from rules — it discovers them. 19 engineered
+      features (income, spend, household, tenure, engagement) are standardized,
+      compressed to 3 principal components, then clustered with K-Means (k=4,
+      chosen via elbow/silhouette on the notebook side).
+    </p>
+    <div class="method-grid">
+      <div class="method-step">
+        <div class="n">01 · Encode</div>
+        <h3>Feature engineering</h3>
+        <p>Age, tenure, total spend and total children are derived; education and living
+          situation are bucketed and one-hot encoded.</p>
+      </div>
+      <div class="method-step">
+        <div class="n">02 · Compress</div>
+        <h3>Standardize + PCA</h3>
+        <p>19 features are scaled to unit variance, then projected onto the 3 principal
+          components that capture most of the spread.</p>
+      </div>
+      <div class="method-step">
+        <div class="n">03 · Cluster</div>
+        <h3>K-Means, k = 4</h3>
+        <p>Every customer is assigned to the nearest of 4 centroids in PCA space —
+          the same math the live predictor runs per scan.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer wrap">
+  <span>SmartCart Clustering System · unsupervised segmentation, K-Means on PCA(3)</span>
+  <span>Built from smartcart_customer_segmentation.ipynb</span>
+</footer>
+
+<script src="js/insights.js"></script>
+</body>
+</html>
